@@ -4,30 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Turbo Games</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
         body {
             font-family: "Poppins", sans-serif;
-            background: radial-gradient(circle, #1a1a1a, #0d0d0d);
-            color: #fff;
+            background: radial-gradient(circle, #050505, #000);
+            color: #0ff;
             display: flex;
             flex-direction: column;
             align-items: center;
             margin: 20px;
             overflow-x: hidden;
             animation: fadeIn 1s ease-in-out;
+            text-shadow: 0 0 5px #0ff, 0 0 10px #00f, 0 0 20px #0ff;
         }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         .banner {
@@ -40,9 +34,14 @@
             border-radius: 25px;
             margin-bottom: 30px;
             box-shadow: 0 15px 30px rgba(0, 255, 127, 0.7);
-            position: relative;
-            overflow: hidden;
-            animation: fadeIn 1.2s ease-in-out, gradientAnimation 6s infinite alternate;
+            animation: gradientAnimation 6s infinite alternate;
+            transform: perspective(1000px) rotateX(10deg);
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         h1 {
@@ -52,7 +51,6 @@
             margin: 0;
             text-transform: uppercase;
             text-shadow: 0px 0px 20px rgba(0, 255, 127, 0.9);
-            animation: fadeIn 1.5s ease-in-out;
         }
 
         .game-container {
@@ -64,9 +62,8 @@
         }
 
         .game-button {
-            background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+            background: linear-gradient(145deg, #111, #333);
             border-radius: 20px;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -74,14 +71,15 @@
             padding: 20px;
             cursor: pointer;
             transition: transform 0.3s ease-in-out, background 0.3s, box-shadow 0.3s;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8), -5px -5px 15px rgba(255, 255, 255, 0.1);
-            animation: fadeIn 1.8s ease-in-out;
+            box-shadow: 0 0 20px #0ff, inset 0 0 10px #00f;
+            transform: perspective(1000px) rotateY(10deg) rotateX(5deg);
+            border: 2px solid rgba(0, 255, 255, 0.5);
         }
 
         .game-button:hover {
-            transform: scale(1.15) rotate(5deg);
-            background: linear-gradient(145deg, #3d3d3d, #505050);
-            box-shadow: 0 10px 40px rgba(138, 43, 226, 1);
+            transform: perspective(1000px) rotateY(-10deg) rotateX(-5deg) scale(1.2);
+            background: linear-gradient(145deg, #222, #444);
+            box-shadow: 0 0 40px #0ff;
         }
 
         .game-button img {
@@ -90,10 +88,11 @@
             object-fit: cover;
             border-radius: 15px;
             transition: transform 0.3s ease-in-out, filter 0.3s;
+            transform: perspective(1000px) rotateX(10deg);
         }
 
         .game-button:hover img {
-            transform: scale(1.3) rotate(-5deg);
+            transform: perspective(1000px) rotateX(-10deg) scale(1.3);
             filter: brightness(1.5);
         }
 
@@ -104,8 +103,8 @@
             text-align: center;
             letter-spacing: 1px;
             text-transform: uppercase;
-            color: #00ff7f;
-            text-shadow: 0px 0px 15px rgba(0, 255, 127, 1);
+            color: #0ff;
+            text-shadow: 0 0 10px #0ff, 0 0 20px #00f;
             transition: color 0.3s ease-in-out;
         }
 
@@ -115,31 +114,34 @@
     </style>
 </head>
 <body>
-
     <div class="banner">
         <h1>Turbo Games</h1>
     </div>
 
-    <div class="game-container">
-        <script>
-            const gameData = [
-                { name: "Game 1", url: "https://example.com/game1", img: "https://via.placeholder.com/100?text=Game1" },
-                { name: "Game 2", url: "https://example.com/game2", img: "https://via.placeholder.com/100?text=Game2" },
-                { name: "Game 3", url: "https://example.com/game3", img: "https://via.placeholder.com/100?text=Game3" },
-                { name: "Game 4", url: "https://example.com/game4", img: "https://via.placeholder.com/100?text=Game4" }
-            ];
-            
-            gameData.forEach(game => {
-                document.write(`
-                    <div class="game-button" onclick="window.location.href='${game.url}'">
-                        <img src="${game.img}" alt="${game.name}">
-                        <span>${game.name}</span>
-                    </div>
-                `);
-            });
-        </script>
-    </div>
+    <div class="game-container" id="game-container"></div>
 
+    <script>
+        const gameData = [
+            { name: "Game 1", url: "https://example.com/game1", img: "https://via.placeholder.com/100?text=Game1" },
+            { name: "Game 2", url: "https://example.com/game2", img: "https://via.placeholder.com/100?text=Game2" },
+            { name: "Game 3", url: "https://example.com/game3", img: "https://via.placeholder.com/100?text=Game3" },
+            { name: "Game 4", url: "https://example.com/game4", img: "https://via.placeholder.com/100?text=Game4" }
+        ];
+
+        const gameContainer = document.getElementById("game-container");
+
+        gameData.forEach(game => {
+            const gameButton = document.createElement("div");
+            gameButton.classList.add("game-button");
+            gameButton.onclick = () => window.location.href = game.url;
+            
+            gameButton.innerHTML = `
+                <img src="${game.img}" alt="${game.name}">
+                <span>${game.name}</span>
+            `;
+            
+            gameContainer.appendChild(gameButton);
+        });
+    </script>
 </body>
 </html>
-
