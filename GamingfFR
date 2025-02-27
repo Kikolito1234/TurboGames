@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turbo Games</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: "Poppins", sans-serif;
+        }
+        iframe {
+            width: 100vw;
+            height: 100vh;
+            border: none;
+        }
+        .popup {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(90deg, #00ff7f, #8a2be2, #ff007f);
+            background-size: 300% 300%;
+            padding: 15px;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 255, 127, 0.7);
+            width: 250px;
+            animation: gradientAnimation 6s infinite alternate;
+            color: #fff;
+        }
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .popup h3 {
+            margin: 0 0 10px;
+            font-size: 1rem;
+        }
+        .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #ff0000;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <iframe src="https://kikolito1234.github.io/TurboGames/"></iframe>
+    
+    <div class="popup" id="popup">
+        <button class="close-btn" onclick="document.getElementById('popup').style.display='none'">&times;</button>
+        <h3>Have you enjoyed using Turbo Games?</h3>
+        <span class="likebtn-wrapper" data-theme="custom" data-icon_l="hrt6" data-icon_d="hrt6-o" data-identifier="turbogames" data-show_like_label="false" data-icon_dislike_show="false" data-voting_frequency="4096"></span>
+    </div>
+    
+    <script>
+        (function(d,e,s){
+            if(d.getElementById("likebtn_wjs")) return;
+            let a = d.createElement(e), m = d.getElementsByTagName(e)[0];
+            a.async = 1;
+            a.id = "likebtn_wjs";
+            a.src = "//w.likebtn.com/js/w/widget.js";
+            m.parentNode.insertBefore(a, m);
+        })(document,"script");
+    </script>
+</body>
+</html>
