@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turbo Games</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background: radial-gradient(circle, #050505, #000);
+            color: #0ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+            overflow-x: hidden;
+            animation: fadeIn 1s ease-in-out;
+            text-shadow: 0 0 5px #0ff, 0 0 10px #00f, 0 0 20px #0ff;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .banner {
+            width: 100%;
+            max-width: 1200px;
+            background: linear-gradient(90deg, #00ff7f, #8a2be2, #ff007f);
+            background-size: 300% 300%;
+            padding: 40px 0;
+            text-align: center;
+            border-radius: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 30px rgba(0, 255, 127, 0.7);
+            animation: gradientAnimation 6s infinite alternate;
+            transform: perspective(1000px) rotateX(10deg);
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin: 0;
+            text-transform: uppercase;
+            text-shadow: 0px 0px 20px rgba(0, 255, 127, 0.9);
+        }
+
+        .game-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+            width: 90%;
+            max-width: 1000px;
+        }
+
+        .game-button {
+            background: linear-gradient(145deg, #111, #333);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out, background 0.3s, box-shadow 0.3s;
+            box-shadow: 0 0 20px #0ff, inset 0 0 10px #00f;
+            transform: perspective(1000px) rotateY(10deg) rotateX(5deg);
+            border: 2px solid rgba(0, 255, 255, 0.5);
+        }
+
+        .game-button:hover {
+            transform: perspective(1000px) rotateY(-10deg) rotateX(-5deg) scale(1.2);
+            background: linear-gradient(145deg, #222, #444);
+            box-shadow: 0 0 40px #0ff;
+        }
+
+        .game-button img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 15px;
+            transition: transform 0.3s ease-in-out, filter 0.3s;
+            transform: perspective(1000px) rotateX(10deg);
+        }
+
+        .game-button:hover img {
+            transform: perspective(1000px) rotateX(-10deg) scale(1.3);
+            filter: brightness(1.5);
+        }
+
+        .game-button span {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #0ff;
+            text-shadow: 0 0 10px #0ff, 0 0 20px #00f;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .game-button:hover span {
+            color: #ff007f;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <h1>Turbo Games</h1>
+    </div>
+
+    <div class="game-container" id="game-container"></div>
+
+    <script>
+        const gameData = [
+            { name: "Territorial", url: "game1.html", img: "https://play-lh.googleusercontent.com/51Sh28L_ZYYkIHJHSmT4s_w3E8vXdTJlWUtfAxx9W91m090qx0QoN7Zr810V4bNdOoY=s96-rw" },
+            { name: "Survev", url: "game2.html", img: "https://img.poki-cdn.com/cdn-cgi/image/quality=78,width=80,height=80,fit=cover,f=auto/df1ee2ef4b121c0e1b5f12992e2edee0.png" },
+            { name: "Drive Mad", url: "game3.html", img: "https://monkeymart.org/wp-content/uploads/2023/09/drive-mad.png" },
+            { name: "Subway Surfers", url: "game4.html", img: "https://img.poki-cdn.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/e90cc5d8da6dea10c2dfbbcf60aa6cfa.png" },
+            { name: "Jump Only", url: "game5.html", img: "https://img.poki-cdn.com/cdn-cgi/image/quality=78,width=94,height=94,fit=cover,f=auto/b7f84bf890e2fcfaba3c19a49573d8fe.png" },
+            { name: "Polytrack", url: "game6.html", img: "https://cdn2.steamgriddb.com/thumb/9442e15eadaf27455b8b4f25dbc1f182.jpg" },
+        ];
+
+        const gameContainer = document.getElementById("game-container");
+
+        gameData.forEach(game => {
+            const gameButton = document.createElement("div");
+            gameButton.classList.add("game-button");
+            gameButton.onclick = () => window.location.href = game.url;
+            
+            gameButton.innerHTML = `
+                <img src="${game.img}" alt="${game.name}">
+                <span>${game.name}</span>
+            `;
+            
+            gameContainer.appendChild(gameButton);
+        });
+    </script>
+</body>
+</html>
