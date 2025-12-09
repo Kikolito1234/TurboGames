@@ -4,116 +4,199 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Turbo Games</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
     <style>
+        /* ===== ANIMATED VISIONOS BACKGROUND ===== */
         body {
             font-family: "Poppins", sans-serif;
-            background: radial-gradient(circle, #050505, #000);
-            color: #0ff;
+            margin: 0;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 20px;
+            min-height: 100vh;
             overflow-x: hidden;
-            animation: fadeIn 1s ease-in-out;
-            text-shadow: 0 0 5px #0ff, 0 0 10px #00f, 0 0 20px #0ff;
+
+            background: radial-gradient(circle at 30% 20%, #7a3cff44, transparent 60%),
+                        radial-gradient(circle at 70% 80%, #ff68e844, transparent 60%),
+                        radial-gradient(circle at 50% 50%, #ffa93b33, transparent 70%),
+                        #05050a;
+
+            background-size: 250% 250%;
+            animation: bgMove 12s ease-in-out infinite alternate;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes bgMove {
+            0% { background-position: 30% 0%; }
+            100% { background-position: 70% 100%; }
         }
 
+        /* ===== ANIMATED GRADIENT BANNER ===== */
         .banner {
             width: 100%;
             max-width: 1200px;
-            background: linear-gradient(90deg, #00ff7f, #8a2be2, #ff007f);
-            background-size: 300% 300%;
-            padding: 40px 0;
-            text-align: center;
-            border-radius: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 15px 30px rgba(0, 255, 127, 0.7);
-            animation: gradientAnimation 6s infinite alternate;
-            transform: perspective(1000px) rotateX(10deg);
-        }
-
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        h1 {
-            font-size: 4rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            margin: 0;
-            text-transform: uppercase;
-            text-shadow: 0px 0px 20px rgba(0, 255, 127, 0.9);
-        }
-
-        .game-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 30px;
-            width: 90%;
-            max-width: 1000px;
-        }
-
-        .game-button {
-            background: linear-gradient(145deg, #111, #333);
-            border-radius: 20px;
+            height: 180px;
+            position: relative;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+
+            margin-bottom: 50px;
+            border-radius: 36px;
+            overflow: hidden;
+
+            /* animated gradient backdrop */
+            background: linear-gradient(
+                120deg,
+                #8b5bff,
+                #ff64df,
+                #ffb360,
+                #6ceaff,
+                #8b5bff
+            );
+            background-size: 400% 400%;
+            animation: bannerGradient 5s ease-in-out infinite alternate;
+
+            box-shadow:
+                0 25px 65px rgba(0, 0, 0, 0.55),
+                0 0 35px rgba(255, 255, 255, 0.18);
+        }
+
+        @keyframes bannerGradient {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* GLASS LAYER */
+        .banner::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.16);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+        }
+
+        /* CENTERED WHITE LOGO */
+        .banner h1 {
+            position: relative;
+            z-index: 2;
+            margin: 0;
+            font-size: 4rem;
+            font-weight: 700;
+            color: white;
+
+            text-align: center;
+
+            text-shadow:
+                0 0 25px rgba(255, 255, 255, 0.85),
+                0 0 50px rgba(255, 255, 255, 0.55);
+            
+            animation: logoGlow 2.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes logoGlow {
+            0% { opacity: 0.85; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.03); }
+        }
+
+        /* ===== GAME GRID ===== */
+        .game-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 35px;
+            width: 90%;
+            max-width: 1100px;
+        }
+
+        /* ===== ENHANCED GLASS CARDS ===== */
+        .game-button {
+            background: linear-gradient(
+                145deg,
+                rgba(130, 80, 255, 0.30),
+                rgba(255, 120, 240, 0.30),
+                rgba(255, 210, 120, 0.27)
+            );
+            backdrop-filter: blur(35px) saturate(250%);
+            -webkit-backdrop-filter: blur(35px) saturate(250%);
+
+            border-radius: 26px;
+            padding: 24px;
             cursor: pointer;
-            transition: transform 0.3s ease-in-out, background 0.3s, box-shadow 0.3s;
-            box-shadow: 0 0 20px #0ff, inset 0 0 10px #00f;
-            transform: perspective(1000px) rotateY(10deg) rotateX(5deg);
-            border: 2px solid rgba(0, 255, 255, 0.5);
+            text-align: center;
+            transition: 0.3s ease;
+            border: 1.8px solid rgba(255, 255, 255, 0.25);
+
+            box-shadow:
+                0 20px 55px rgba(0, 0, 0, 0.55),
+                inset 0 0 25px rgba(255, 255, 255, 0.12);
+
+            animation: floatUp 4s ease-in-out infinite alternate;
         }
 
+        @keyframes floatUp {
+            0%   { transform: translateY(0px); }
+            100% { transform: translateY(-10px); }
+        }
+
+        /* ===== MORE NOTICEABLE HOVER ANIMATION ===== */
         .game-button:hover {
-            transform: perspective(1000px) rotateY(-10deg) rotateX(-5deg) scale(1.2);
-            background: linear-gradient(145deg, #222, #444);
-            box-shadow: 0 0 40px #0ff;
+            transform: translateY(-18px) scale(1.10);
+
+            background: linear-gradient(
+                145deg,
+                rgba(150, 95, 255, 0.45),
+                rgba(255, 135, 250, 0.45),
+                rgba(255, 220, 140, 0.40)
+            );
+
+            border-color: rgba(255, 255, 255, 0.55);
+
+            box-shadow:
+                0 40px 75px rgba(0, 0, 0, 0.65),
+                0 0 70px rgba(255, 150, 255, 0.55),
+                inset 0 0 50px rgba(255, 255, 255, 0.25);
         }
 
+        /* ===== STRONGER GLOW PULSE ON IMAGES ===== */
         .game-button img {
-            width: 100px;
-            height: 100px;
+            width: 110px;
+            height: 110px;
+            border-radius: 22px;
             object-fit: cover;
-            border-radius: 15px;
-            transition: transform 0.3s ease-in-out, filter 0.3s;
-            transform: perspective(1000px) rotateX(10deg);
+
+            border: 2px solid rgba(255, 255, 255, 0.28);
+
+            box-shadow:
+                0 0 30px rgba(255, 255, 255, 0.22),
+                0 0 45px rgba(150, 90, 255, 0.22),
+                inset 0 0 22px rgba(255, 255, 255, 0.18);
+
+            animation: imgPulse 3s ease-in-out infinite alternate;
         }
 
-        .game-button:hover img {
-            transform: perspective(1000px) rotateX(-10deg) scale(1.3);
-            filter: brightness(1.5);
+        @keyframes imgPulse {
+            0% { filter: brightness(1); transform: scale(1); }
+            100% { filter: brightness(1.3); transform: scale(1.07); }
         }
 
         .game-button span {
-            margin-top: 10px;
+            margin-top: 12px;
+            display: block;
             font-size: 1.2rem;
-            font-weight: bold;
-            text-align: center;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: #0ff;
-            text-shadow: 0 0 10px #0ff, 0 0 20px #00f;
-            transition: color 0.3s ease-in-out;
-        }
+            font-weight: 600;
+            color: #ffffffee;
 
-        .game-button:hover span {
-            color: #ff007f;
+            text-shadow:
+                0 0 12px rgba(255, 200, 255, 0.28),
+                0 0 18px rgba(100, 150, 255, 0.25);
         }
     </style>
 </head>
+
 <body>
+
     <div class="banner">
         <h1>Turbo Games</h1>
     </div>
@@ -130,20 +213,21 @@
             { name: "Polytrack", url: "game6.html", img: "https://cdn2.steamgriddb.com/thumb/9442e15eadaf27455b8b4f25dbc1f182.jpg" },
         ];
 
-        const gameContainer = document.getElementById("game-container");
+        const container = document.getElementById("game-container");
 
         gameData.forEach(game => {
-            const gameButton = document.createElement("div");
-            gameButton.classList.add("game-button");
-            gameButton.onclick = () => window.location.href = game.url;
-            
-            gameButton.innerHTML = `
+            const el = document.createElement("div");
+            el.className = "game-button";
+            el.onclick = () => window.location.href = game.url;
+
+            el.innerHTML = `
                 <img src="${game.img}" alt="${game.name}">
                 <span>${game.name}</span>
             `;
-            
-            gameContainer.appendChild(gameButton);
+
+            container.appendChild(el);
         });
     </script>
+
 </body>
 </html>
